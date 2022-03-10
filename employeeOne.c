@@ -22,3 +22,34 @@ PtrToEmployee searchEmployeeByName(PtrToConstEmployee ptr, int tableSize, char *
   }
   return NULL;
 }
+
+// search by phone number
+
+PtrToEmployee searchEmployeeByPhoneNumber(PtrToConstEmployee ptr, int tableSize, char *targetPhoneNumber)
+{
+  const PtrToConstEmployee tableEnd = ptr + tableSize; // find the address of the end of the table (last item)
+  for (; ptr < tableEnd; ptr++)                        // loops each employee until the end of table
+  {
+    if (strcmp(ptr->phone, targetPhoneNumber) == 0) // check if strings values of phone number are the same
+    {
+      return (PtrToEmployee)ptr; // return ptr
+    }
+  }
+  return NULL; // phone number never found
+}
+
+// search by salary
+
+PtrToEmployee searchEmployeeBySalary(PtrToConstEmployee ptr, int tableSize, double targetSalary)
+{
+  const PtrToConstEmployee tableEnd = ptr + tableSize;
+  for (; ptr < tableEnd; ptr++)
+  {
+    double diff = ptr->salary - targetSalary;
+    if ((diff < .01) && (-1 * diff < .01)) // compare two salaries (less than 1cent of a difference)
+    {
+      return (PtrToEmployee)ptr;
+    }
+  }
+  return NULL;
+}
